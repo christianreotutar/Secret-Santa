@@ -1,0 +1,81 @@
+<html>
+    <head> 
+        {% if title %}
+        <title>{{ title }}</title>
+        {% else %}
+        <title>Secret Santa</title>
+        {% endif %}
+
+        <style>
+            #flash {
+                width: 95%;
+                background-color: gray;
+                padding: 5px;
+                border-radius: 5px;
+            }
+
+            .error {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+    <!--
+        <form action="/hello" method="POST">
+            <div class="form"> Name: <input type="text" name="name" id="name"> </div>
+            <div class="form"> Email: <input type="text" name="email" id="email"> </div>
+            <div class="form"> Wishlist: <input type="file" name="fileupload" id="fileupload"> </div>
+            <input type="submit" name="submit">
+        </form>
+    !-->
+
+
+    <!--
+        <p>Hello, {{ user.nickname}}!</p>
+        <form action="" method="post" name="login">
+            {{ form.hidden_tag() }}
+            {% for form in forms %}
+            <p> {{form.name}}: <input type="{{form.type}}" 
+                name="{{form.name}}" id="{{form.name}}"> </p>
+            {% endfor %}
+            <input type="submit" name="submit">
+        </form>
+    -->
+
+        <div id="flash"> 
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form action="" method="post" name="login" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <p> name: {{ form.name(size=30) }} </p>
+            {% for error in form.name.errors %}
+                <span class="error">[{{ error }}] </span>
+                <br/>
+            {% endfor %}
+
+            <p> email: {{ form.email(size=50) }} </p>
+            {% for error in form.email.errors %}
+                <span class="error">[{{ error }}] </span>
+                <br/>
+            {% endfor %}
+
+            <p> wishlist: {{ form.wishlist }} </p>
+            {% for error in form.wishlist.errors %}
+                <span class="error">[{{ error }}] </span>
+                <br/>
+            {% endfor %}
+
+            <p><input type="submit" name="submit"></p>
+        </form>
+    </body>
+</html>
